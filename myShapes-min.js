@@ -306,11 +306,20 @@ class Cone extends cgIShape {
 
 class Sphere extends cgIShape {
     constructor(a, d) {
-        super(), this.makeSphere(a, d)
+        // Call the parent class constructor
+        super();
+
+        // Create a sphere with the given parameters
+        this.makeSphere(a, d);
     }
+
     makeSphere(a, d) {
+        // Validate and set minimum values for a and d
+        a < 3 && (a = 3);
+        d < 3 && (d = 3);
+
+        // Calculate values for the sphere
         let s, t, i, h, r, n, e, o, l, M, c, u, m, v, g;
-        a < 3 && (a = 3), d < 3 && (d = 3);
         let N = 6.28 / a,
             T = 3.14 / d,
             C = 1 / a,
@@ -323,31 +332,91 @@ class Sphere extends cgIShape {
             b = 0,
             q = Math.sin(T),
             y = Math.cos(T),
-            j = .5,
-            w = .5 * y;
+            j = 0.5,
+            w = 0.5 * y;
         var z, A;
+
+        // Generate triangles for the upper hemisphere
         for (I = 1, A = 0; A < a; A++) {
             b = 0;
+
+            // Calculate vertex positions
             let a = Math.sin(k),
                 d = Math.cos(k),
                 T = Math.sin(k + N);
-            s = 0, t = .5, i = 0, M = 0, c = 0, n = Math.cos(k + N) * q * .5, r = w, h = T * q * .5, u = I - C, m = b + f, l = d * q * .5, o = w, e = a * q * .5, v = I, g = b + f, this.addTriangle(s, t, i, e, o, l, h, r, n), this.addNormal(s, t, i, e, o, l, h, r, n), this.adduv(M, c, v, g, u, m), k += N, I -= C
+            s = 0, t = 0.5, i = 0, M = 0, c = 0, n = Math.cos(k + N) * q * 0.5, r = w, h = T * q * 0.5, u = I - C, m = b + f, l = d * q * 0.5, o = w, e = a * q * 0.5, v = I, g = b + f;
+
+            // Add the triangle and its normal to the shape
+            this.addTriangle(s, t, i, e, o, l, h, r, n);
+            this.addNormal(s, t, i, e, o, l, h, r, n);
+            this.adduv(M, c, v, g, u, m);
+
+            // Update variables for the next iteration
+            k += N;
+            I -= C;
         }
+
+        // Generate triangles for the middle and lower hemispheres
         for (b = f, z = 1; z < d; z++) {
-            for (S = Math.sin(p), x = Math.cos(p), q = Math.sin(p + T), j = .5 * x, w = .5 * (y = Math.cos(p + T)), k = 0, I = 1, A = 0; A <= a; A++) {
+            // Calculate variables for the current row
+            S = Math.sin(p);
+            x = Math.cos(p);
+            q = Math.sin(p + T);
+            j = 0.5 * x;
+            w = 0.5 * (y = Math.cos(p + T));
+            k = 0;
+            I = 1;
+            A = 0;
+
+            // Generate triangles for the current row and column
+            while (A <= a) {
+                // Calculate vertex positions
                 let a = Math.sin(k),
                     d = Math.cos(k),
                     T = Math.sin(k + N),
                     p = Math.cos(k + N);
-                i = d * S * .5, t = j, s = a * S * .5, M = I, c = b, n = p * S * .5, r = j, h = T * S * .5, u = I - C, m = b, l = d * q * .5, o = w, e = a * q * .5, v = I, g = b + f, this.addTriangle(e, o, l, h, r, n, s, t, i), this.addNormal(e, o, l, h, r, n, s, t, i), this.adduv(1 - v, 1 - g, 1 - u, 1 - m, 1 - M, 1 - c), i = p * S * .5, t = j, s = T * S * .5, M = I - C, c = b, n = p * q * .5, r = w, h = T * q * .5, u = I - C, m = b + f, l = d * q * .5, o = w, e = a * q * .5, v = I, g = b + f, this.addTriangle(s, t, i, e, o, l, h, r, n), this.addNormal(s, t, i, e, o, l, h, r, n), this.adduv(1 - M, 1 - c, 1 - v, 1 - g, 1 - u, 1 - m), k += N, I -= C
+                i = d * S * 0.5, t = j, s = a * S * 0.5, M = I, c = b, n = p * S * 0.5, r = j, h = T * S * 0.5, u = I - C, m = b, l = d * q * 0.5, o = w, e = a * q * 0.5, v = I, g = b + f;
+
+                // Add the triangle and its normal to the shape
+                this.addTriangle(e, o, l, h, r, n, s, t, i);
+                this.addNormal(e, o, l, h, r, n, s, t, i);
+                this.adduv(1 - v, 1 - g, 1 - u, 1 - m, 1 - M, 1 - c);
+
+                // Calculate vertex positions for the adjacent column
+                i = p * S * 0.5, t = j, s = T * S * 0.5, M = I - C, c = b, n = p * q * 0.5, r = w, h = T * q * 0.5, u = I - C, m = b + f, l = d * q * 0.5, o = w, e = a * q * 0.5, v = I, g = b + f;
+
+                // Add the triangle and its normal to the shape
+                this.addTriangle(s, t, i, e, o, l, h, r, n);
+                this.addNormal(s, t, i, e, o, l, h, r, n);
+                this.adduv(1 - M, 1 - c, 1 - v, 1 - g, 1 - u, 1 - m);
+
+                // Update variables for the next iteration
+                k += N;
+                I -= C;
+                A++;
             }
-            p += T, b += f
+
+            // Update variables for the next row
+            p += T;
+            b += f;
         }
-        for (I = 1, b = 1, k = 0, S = Math.sin(p), q = 0, y = -1, j = .5 * (x = Math.cos(p)), w = -.5, A = 0; A < a; A++) {
+
+        // Generate triangles for the bottom hemisphere
+        for (I = 1, b = 1, k = 0, S = Math.sin(p), q = 0, y = -1, j = 0.5 * (x = Math.cos(p)), w = -0.5, A = 0; A < a; A++) {
+            // Calculate vertex positions
             let a = Math.sin(k),
                 d = Math.cos(k),
                 T = Math.sin(k + N);
-            i = d * S * .5, t = w, s = a * S * .5, M = I, c = b, n = Math.cos(k + N) * S * .5, r = w, h = T * S * .5, u = I - C, m = b, l = 0, o = -.5, e = 0, v = 1, g = 1, this.addTriangle(s, t, i, e, o, l, h, r, n), this.addNormal(s, t, i, e, o, l, h, r, n), this.adduv(M, c, v, g, u, m), k += N, I -= C
+            i = d * S * 0.5, t = w, s = a * S * 0.5, M = I, c = b, n = Math.cos(k + N) * S * 0.5, r = w, h = T * S * 0.5, u = I - C, m = b, l = 0, o = -0.5, e = 0, v = 1, g = 1;
+
+            // Add the triangle and its normal to the shape
+            this.addTriangle(s, t, i, e, o, l, h, r, n);
+            this.addNormal(s, t, i, e, o, l, h, r, n);
+            this.adduv(M, c, v, g, u, m);
+
+            // Update variables for the next iteration
+            k += N;
+            I -= C;
         }
     }
 }
