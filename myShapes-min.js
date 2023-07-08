@@ -132,22 +132,86 @@ class Cone extends cgIShape {
     constructor(a, d) {
         super(), this.makeCone(a, d)
     }
+
+    // The makeCone() method is responsible for creating a cone based on the provided parameters.
     makeCone(a, d) {
         let s = -.5;
-        a < 3 && (a = 3), d < 1 && (d = 1);
+
+        // Checking if the value of "a" is less than 3 and updating it if true.
+        a < 3 && (a = 3);
+
+        // Checking if the value of "d" is less than 1 and updating it if true.
+        d < 1 && (d = 1);
+
         let t = 360 / a,
             i = 1 / d;
         var h, r, n, e, o, l, M, c, u, m, v, g, N, T, C, f = 360;
+
         let p, k, S = 1 / a,
             x = 1 / d,
             I = .5 / d;
-        for (p = 0, r = 0; r < a; r++) n = I * Math.cos(radians(f)), o = I * Math.sin(radians(f)), M = 0, c = .5, u = 0, m = e = I * Math.cos(radians(f - t)), v = .5 - i, g = l = I * Math.sin(radians(f - t)), N = n, T = .5 - i, C = o, this.addTriangle(M, c, u, m, v, g, N, T, C), this.addConeNormal(M, c, u, m, v, g, N, T, C), this.adduv(0, 0, p + S, x, p, x), n = .5 * Math.cos(radians(f)), o = .5 * Math.sin(radians(f)), M = 0, c = s, u = 0, m = e = .5 * Math.cos(radians(f - t)), v = s, g = l = .5 * Math.sin(radians(f - t)), N = n, T = s, C = o, this.addTriangle(M, c, u, m, v, g, N, T, C), this.addConeNormal(0, -1, 0, 0, -1, 0, 0, -1, 0), this.adduv(.5, .5, e + .5, 1 - (l + .5), n + .5, 1 - (o + .5)), f -= t, p += S;
+
+        // Looping through the number of "a" segments.
+        for (p = 0, r = 0; r < a; r++) {
+            n = I * Math.cos(radians(f));
+            o = I * Math.sin(radians(f));
+            M = 0;
+            c = .5;
+            u = 0;
+            m = e = I * Math.cos(radians(f - t));
+            v = .5 - i;
+            g = l = I * Math.sin(radians(f - t));
+            N = n;
+            T = .5 - i;
+            C = o;
+
+            // Adding a triangle to the shape using the defined vertices.
+            this.addTriangle(M, c, u, m, v, g, N, T, C);
+
+            // Adding the normal vector for the cone shape.
+            this.addConeNormal(M, c, u, m, v, g, N, T, C);
+
+            // Adding UV coordinates.
+            this.adduv(0, 0, p + S, x, p, x);
+
+            n = .5 * Math.cos(radians(f));
+            o = .5 * Math.sin(radians(f));
+            M = 0;
+            c = s;
+            u = 0;
+            m = e = .5 * Math.cos(radians(f - t));
+            v = s;
+            g = l = .5 * Math.sin(radians(f - t));
+            N = n;
+            T = s;
+            C = o;
+
+            // Adding a triangle to the shape using the defined vertices.
+            this.addTriangle(M, c, u, m, v, g, N, T, C);
+
+            // Adding the normal vector for the cone shape.
+            this.addConeNormal(0, -1, 0, 0, -1, 0, 0, -1, 0);
+
+            // Adding UV coordinates.
+            this.adduv(.5, .5, e + .5, 1 - (l + .5), n + .5, 1 - (o + .5));
+
+            f -= t;
+            p += S;
+        }
+
+        // Looping through the number of "d" segments.
         for (k = 1, h = 0; h < d; h++) {
             let d = h * i,
                 n = h,
                 e = 360;
+
+            // Looping through the number of "a" segments.
             for (p = 0, r = 0; r < a; r++) {
-                Math.cos(radians(e)), Math.sin(radians(e)), Math.cos(radians(e - t)), Math.sin(radians(e - t));
+                Math.cos(radians(e));
+                Math.sin(radians(e));
+                Math.cos(radians(e - t));
+                Math.sin(radians(e - t));
+
                 let a = .5 * (1 - n * i),
                     h = a * Math.cos(radians(e)),
                     r = a * Math.sin(radians(e)),
@@ -158,29 +222,81 @@ class Cone extends cgIShape {
                     b = f * Math.sin(radians(e)),
                     q = f * Math.cos(radians(e - t)),
                     y = f * Math.sin(radians(e - t));
-                a = f, M = o, c = s + d, u = l, m = I, v = s + d + i, g = b, N = h, T = s + d, C = r, this.addTriangle(M, c, u, m, v, g, N, T, C), this.addConeNormal(M, c, u, m, v, g, N, T, C), this.adduv(p + S, 1 - k, p, 1 - (k - x), p, 1 - k), M = o, c = s + d, u = l, m = q, v = s + d + i, g = y, N = I, T = s + d + i, C = b, this.addTriangle(M, c, u, m, v, g, N, T, C), this.addConeNormal(M, c, u, m, v, g, N, T, C), this.adduv(p + S, 1 - k, p + S, 1 - (k - x), p, 1 - (k - x)), e -= t, p += S
+
+                a = f;
+                M = o;
+                c = s + d;
+                u = l;
+                m = I;
+                v = s + d + i;
+                g = b;
+                N = h;
+                T = s + d;
+                C = r;
+
+                // Adding a triangle to the shape using the defined vertices.
+                this.addTriangle(M, c, u, m, v, g, N, T, C);
+
+                // Adding the normal vector for the cone shape.
+                this.addConeNormal(M, c, u, m, v, g, N, T, C);
+
+                // Adding UV coordinates.
+                this.adduv(p + S, 1 - k, p, 1 - (k - x), p, 1 - k);
+
+                M = o;
+                c = s + d;
+                u = l;
+                m = q;
+                v = s + d + i;
+                g = y;
+                N = I;
+                T = s + d + i;
+                C = b;
+
+                // Adding a triangle to the shape using the defined vertices.
+                this.addTriangle(M, c, u, m, v, g, N, T, C);
+
+                // Adding the normal vector for the cone shape.
+                this.addConeNormal(M, c, u, m, v, g, N, T, C);
+
+                // Adding UV coordinates.
+                this.adduv(p + S, 1 - k, p + S, 1 - (k - x), p, 1 - (k - x));
+
+                e -= t;
+                p += S;
             }
-            k -= x
+            k -= x;
         }
     }
+
+    // The addConeNormal() method calculates and adds the normal vector for the cone shape.
     addConeNormal(a, d, s, t, i, h, r, n, e) {
         let o = 2 * a,
             l = .5,
             M = 2 * s,
             c = Math.sqrt(o * o + l * l + M * M);
+
         o /= c, l /= c, M /= c;
+
         let u = 2 * t,
             m = .5,
             v = 2 * h,
             g = Math.sqrt(u * u + m * m + v * v);
+
         u /= g, m /= g, v /= g;
+
         let N = 2 * r,
             T = .5,
             C = 2 * e,
             f = Math.sqrt(N * N + T * T + C * C);
-        N /= f, T /= f, C /= f, this.addNormal(o, l, M, u, m, v, N, T, C)
+
+        N /= f, T /= f, C /= f;
+
+        // Adding the normal vector to the shape.
+        this.addNormal(o, l, M, u, m, v, N, T, C);
     }
 }
+
 class Sphere extends cgIShape {
     constructor(a, d) {
         super(), this.makeSphere(a, d)
