@@ -87,6 +87,8 @@ class Cylinder extends cgIShape {
     constructor(a, d) {
         super(), this.makeCylinder(a, d)
     }
+
+    // Function to create a cylinder shape
     makeCylinder(a, d) {
         var s = -.5;
         a < 3 && (a = 3), d < 1 && (d = 1);
@@ -96,6 +98,8 @@ class Cylinder extends cgIShape {
             c = 1 / d;
         var u, m, v = 360;
         let g, N, T, C;
+
+        // Loop to create the top and bottom faces of the cylinder
         for (u = 0; u < a; u++) {
             h = (g = .5 * Math.cos(radians(v))) + .5, 
             r = (N = .5 * Math.sin(radians(v))) + .5, 
@@ -109,6 +113,8 @@ class Cylinder extends cgIShape {
             this.addNormal(0, 1, 0, 0, 1, 0, 0, 1, 0), 
             this.adduv(n, 1 - e, .5, .5, h, 1 - r), v -= t;
         }
+
+        // Loop to create the sides of the cylinder
         for (l = 1, u = 0; u < d; u++) {
             var f = u * i;
             for (v = 360, o = 1, m = 0; m < a; m++) {
@@ -128,6 +134,7 @@ class Cylinder extends cgIShape {
         }
     }
 }
+
 class Cone extends cgIShape {
     constructor(a, d) {
         super(), this.makeCone(a, d)
