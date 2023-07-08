@@ -9,7 +9,7 @@ class Cube extends cgIShape {
             s = -.5,
             t = 1 / a, 
             i = 0;
-            
+
         for (i = 0; i < a; i++) {
             var h, r = i * t;
             for (h = 0; h < a; h++) {
@@ -60,7 +60,7 @@ class Cube extends cgIShape {
 
                 this.addTriangle(d + n, -.5, s + r, d + n + t, -.5, s + r, d + n + t, -.5, s + r + t), 
                 this.addNormal(0, -1, 0, 0, -1, 0, 0, -1, 0), 
-                this.adduv(n, r, n + t, r, n + t, r + t)
+                this.adduv(n, r, n + t, r, n + t, r + t);
             }
         }
     }
@@ -78,11 +78,35 @@ class Cylinder extends cgIShape {
             c = 1 / d;
         var u, m, v = 360;
         let g, N, T, C;
-        for (u = 0; u < a; u++) h = (g = .5 * Math.cos(radians(v))) + .5, r = (N = .5 * Math.sin(radians(v))) + .5, n = (T = .5 * Math.cos(radians(v - t))) + .5, e = (C = .5 * Math.sin(radians(v - t))) + .5, this.addTriangle(g, s, N, 0, s, 0, T, s, C), this.addNormal(0, -1, 0, 0, -1, 0, 0, -1, 0), this.adduv(h, 1 - r, .5, .5, n, 1 - e), this.addTriangle(T, .5, C, 0, .5, 0, g, .5, N), this.addNormal(0, 1, 0, 0, 1, 0, 0, 1, 0), this.adduv(n, 1 - e, .5, .5, h, 1 - r), v -= t;
+        for (u = 0; u < a; u++) {
+            h = (g = .5 * Math.cos(radians(v))) + .5, 
+            r = (N = .5 * Math.sin(radians(v))) + .5, 
+            n = (T = .5 * Math.cos(radians(v - t))) + .5, 
+            e = (C = .5 * Math.sin(radians(v - t))) + .5, 
+            this.addTriangle(g, s, N, 0, s, 0, T, s, C), 
+            this.addNormal(0, -1, 0, 0, -1, 0, 0, -1, 0), 
+            this.adduv(h, 1 - r, .5, .5, n, 1 - e), 
+
+            this.addTriangle(T, .5, C, 0, .5, 0, g, .5, N), 
+            this.addNormal(0, 1, 0, 0, 1, 0, 0, 1, 0), 
+            this.adduv(n, 1 - e, .5, .5, h, 1 - r), v -= t;
+        }
         for (l = 1, u = 0; u < d; u++) {
             var f = u * i;
-            for (v = 360, o = 1, m = 0; m < a; m++) g = .5 * Math.cos(radians(v)), N = .5 * Math.sin(radians(v)), T = .5 * Math.cos(radians(v - t)), C = .5 * Math.sin(radians(v - t)), this.addTriangle(g, s + f, N, T, s + f, C, T, s + f + i, C), this.addNormal(g, 0, N, T, 0, C, T, 0, C), this.adduv(o, 1 - l, o - M, 1 - l, o - M, 1 - (l - c)), this.addTriangle(g, s + f, N, T, s + f + i, C, g, s + f + i, N), this.addNormal(g, 0, N, T, 0, C, g, 0, N), this.adduv(o, 1 - l, o - M, 1 - (l - c), o, 1 - (l - c)), v -= t, o -= M;
-            l -= c
+            for (v = 360, o = 1, m = 0; m < a; m++) {
+                g = .5 * Math.cos(radians(v)), 
+                N = .5 * Math.sin(radians(v)), 
+                T = .5 * Math.cos(radians(v - t)), 
+                C = .5 * Math.sin(radians(v - t)), 
+                this.addTriangle(g, s + f, N, T, s + f, C, T, s + f + i, C), 
+                this.addNormal(g, 0, N, T, 0, C, T, 0, C), 
+                this.adduv(o, 1 - l, o - M, 1 - l, o - M, 1 - (l - c)), 
+                
+                this.addTriangle(g, s + f, N, T, s + f + i, C, g, s + f + i, N), 
+                this.addNormal(g, 0, N, T, 0, C, g, 0, N), 
+                this.adduv(o, 1 - l, o - M, 1 - (l - c), o, 1 - (l - c)), v -= t, o -= M;
+            }
+            l -= c;
         }
     }
 }
